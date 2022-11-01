@@ -1,17 +1,44 @@
 # Permethrin
 
-## Bug tracker.
+## Bug tracker
 
-[] Should allow member email signup, GitHub login, guest login.
-[] Guest login should have the option to sign in as either project manager or developer.
-[] Should allow a project manager to create a new project.
+### Features
 
-    - Name, URL, Description, Project category
+- [ ] Project and issue search capability
+- [ ] User profile
+- [ ] My issues
+- [ ] My projects
+- [ ] Recently updated issues
+- [ ] Kanban board
+- [ ] Email signup
+- [ ] GitHub login
+- [ ] Demo user login
+- [ ] Demo users: Admin, Project Manager, Developer, Submitter
 
-[] Should allow a developer to create a new issue.
-[] Should have search capability.
-[] Should have an option to view my own issues.
-[] Should have an option to view a recently updated issue.
-[] Should have a Kanban board.
+### User capabilities
 
-    - Allow a project manager to create a Kanban board for a project.
+- [ ] Admin can edit roles of the members, create a new project, delete a user, assign users to projects or issues.
+- [ ] Project manager can create a new project.
+- [ ] Allow a project manager to create a Kanban board for a project.
+
+### Issue Management
+
+#### Features
+
+- Commenting
+- Attachments for images and logs.
+- Ticket history.
+- Edit issue details.
+
+#### Details
+
+- Issue title
+- Description
+- Assigned member
+- Creator
+- Project title
+- Priority: low, medium, high
+- Status: open, in progress, additional info required, closed
+- Type: feature request, bugs/errors, other comments
+- Created date
+- Updated date

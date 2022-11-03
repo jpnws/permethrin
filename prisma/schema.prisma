@@ -9,10 +9,129 @@ generator client {
   previewFeatures = ["referentialIntegrity"]
 }
 
-model Star {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  name          String   @db.VarChar(255)
-  constellation String   @db.VarChar(255)
+enum UserRole {
+  ADMIN
+  PROJECT_MANAGER
+  DEVELOPER
+  SUBMITTER
+}
+
+enum ProjectStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+enum TicketType {
+  BUG
+  FEATURE
+  OTHER
+}
+
+model User {
+  id                   Int                 @id @default(autoincrement())
+  username             String              @unique
+  salt                 String
+  password             String
+  email                String              @unique
+  role                 UserRole            @default(SUBMITTER)
+  projects             Project[]
+  created              DateTime            @default(now())
+  updated              DateTime            @updatedAt
+  assignedTickets      Ticket[]            @relation("AssignedTickets")
+  createdTickets       Ticket[]            @relation("CreatedTickets")
+  participatingTickets Ticket[]            @relation("ParticipantsTickets")
+  ticketComments       TicketComment[]
+  ticketAttachments    TicketAttachment[]
+  projectComments      ProjectComment[]
+  projectAttachments   ProjectAttachment[]
+  Ticket               Ticket[]
+}
+
+model Project {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  description       String
+  creator           User                @relation(fields: [creatorId], references: [id])
+  creatorId         Int
+  status            ProjectStatus
+  created           DateTime            @default(now())
+  updated           DateTime            @updatedAt
+  Ticket            Ticket[]
+  ProjectComment    ProjectComment[]
+  ProjectAttachment ProjectAttachment[]
+}
+
+model ProjectComment {
+  id        Int      @id @default(autoincrement())
+  comment   String
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId Int
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId Int
+  created   DateTime @default(now())
+  updated   DateTime @updatedAt
+}
+
+model ProjectAttachment {
+  id        Int      @id @default(autoincrement())
+  name      String
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId Int
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId Int
+  src       String
+  created   DateTime @default(now())
+  updated   DateTime @updatedAt
+}
+
+model Ticket {
+  id           Int                @id @default(autoincrement())
+  title        String
+  description  String
+  assigned     User               @relation("AssignedTickets", fields: [assignedId], references: [id])
+  creator      User               @relation("CreatedTickets", fields: [creatorId], references: [id])
+  participants User[]             @relation("ParticipantsTickets")
+  assignedId   Int
+  project      Project            @relation(fields: [projectId], references: [id])
+  projectId    Int
+  creatorId    Int
+  priority     Int
+  status       TicketStatus
+  type         TicketType
+  comments     TicketComment[]
+  attachments  TicketAttachment[]
+  created      DateTime           @default(now())
+  updated      DateTime           @updatedAt
+  User         User?              @relation(fields: [userId], references: [id])
+  userId       Int?
+}
+
+model TicketComment {
+  id        Int      @id @default(autoincrement())
+  body      String
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId Int
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId  Int
+  created   DateTime @default(now())
+  updated   DateTime @updatedAt
+}
+
+model TicketAttachment {
+  id        Int      @id @default(autoincrement())
+  name      String
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId Int
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId  Int
+  src       String
+  created   DateTime @default(now())
+  updated   DateTime @updatedAt
 }

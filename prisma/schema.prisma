@@ -28,6 +28,12 @@ enum TicketStatus {
   CLOSED
 }
 
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
 enum TicketType {
   BUG
   FEATURE
@@ -35,31 +41,33 @@ enum TicketType {
 }
 
 model User {
-  id                   Int                 @id @default(autoincrement())
-  username             String              @unique
-  salt                 String
-  password             String
-  email                String              @unique
-  role                 UserRole            @default(SUBMITTER)
-  projects             Project[]
-  created              DateTime            @default(now())
-  updated              DateTime            @updatedAt
-  assignedTickets      Ticket[]            @relation("AssignedTickets")
-  createdTickets       Ticket[]            @relation("CreatedTickets")
-  participatingTickets Ticket[]            @relation("ParticipantsTickets")
-  ticketComments       TicketComment[]
-  ticketAttachments    TicketAttachment[]
-  projectComments      ProjectComment[]
-  projectAttachments   ProjectAttachment[]
-  Ticket               Ticket[]
+  id                    String              @id @default(cuid())
+  username              String              @unique
+  name                  String              @default("")
+  salt                  String
+  password              String
+  email                 String              @unique
+  role                  UserRole            @default(SUBMITTER)
+  created               DateTime            @default(now())
+  updated               DateTime            @updatedAt
+  assignedTickets       Ticket[]            @relation("AssignedTickets")
+  createdTickets        Ticket[]            @relation("CreatedTickets")
+  createdProjects       Project[]           @relation("CreatorProjects")
+  participatingProjects Project[]           @relation("ProjectMembers")
+  participatingTickets  Ticket[]
+  ticketComments        TicketComment[]
+  ticketAttachments     TicketAttachment[]
+  projectComments       ProjectComment[]
+  projectAttachments    ProjectAttachment[]
 }
 
 model Project {
-  id                Int                 @id @default(autoincrement())
+  id                String              @id @default(cuid())
   name              String
-  description       String
-  creator           User                @relation(fields: [creatorId], references: [id])
-  creatorId         Int
+  description       String              @db.Text
+  creator           User                @relation("CreatorProjects", fields: [creatorId], references: [id])
+  members           User[]              @relation("ProjectMembers")
+  creatorId         String
   status            ProjectStatus
   created           DateTime            @default(now())
   updated           DateTime            @updatedAt
@@ -69,68 +77,66 @@ model Project {
 }
 
 model ProjectComment {
-  id        Int      @id @default(autoincrement())
-  comment   String
+  id        String   @id @default(cuid())
+  comment   String   @db.Text
   creator   User     @relation(fields: [creatorId], references: [id])
-  creatorId Int
+  creatorId String
   project   Project  @relation(fields: [projectId], references: [id])
-  projectId Int
+  projectId String
   created   DateTime @default(now())
   updated   DateTime @updatedAt
 }
 
 model ProjectAttachment {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   name      String
   creator   User     @relation(fields: [creatorId], references: [id])
-  creatorId Int
+  creatorId String
   project   Project  @relation(fields: [projectId], references: [id])
-  projectId Int
+  projectId String
   src       String
   created   DateTime @default(now())
   updated   DateTime @updatedAt
 }
 
 model Ticket {
-  id           Int                @id @default(autoincrement())
+  id           String             @id @default(cuid())
   title        String
-  description  String
+  description  String             @db.Text
   assigned     User               @relation("AssignedTickets", fields: [assignedId], references: [id])
   creator      User               @relation("CreatedTickets", fields: [creatorId], references: [id])
-  participants User[]             @relation("ParticipantsTickets")
-  assignedId   Int
+  participants User[]
+  assignedId   String
   project      Project            @relation(fields: [projectId], references: [id])
-  projectId    Int
-  creatorId    Int
-  priority     Int
+  projectId    String
+  creatorId    String
+  priority     TicketPriority
   status       TicketStatus
   type         TicketType
   comments     TicketComment[]
   attachments  TicketAttachment[]
   created      DateTime           @default(now())
   updated      DateTime           @updatedAt
-  User         User?              @relation(fields: [userId], references: [id])
-  userId       Int?
 }
 
 model TicketComment {
-  id        Int      @id @default(autoincrement())
-  body      String
+  id        String   @id @default(cuid())
+  body      String   @db.Text
   creator   User     @relation(fields: [creatorId], references: [id])
-  creatorId Int
+  creatorId String
   ticket    Ticket   @relation(fields: [ticketId], references: [id])
-  ticketId  Int
+  ticketId  String
   created   DateTime @default(now())
   updated   DateTime @updatedAt
 }
 
 model TicketAttachment {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   name      String
   creator   User     @relation(fields: [creatorId], references: [id])
-  creatorId Int
+  creatorId String
   ticket    Ticket   @relation(fields: [ticketId], references: [id])
-  ticketId  Int
+  ticketId  String
   src       String
   created   DateTime @default(now())
   updated   DateTime @updatedAt

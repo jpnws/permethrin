@@ -1,33 +1,22 @@
 'use client';
 
 import { Project } from '@prisma/client';
-import { Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from '@tremor/react';
 import superjson from 'superjson';
 
-function asyncComponent<T, R>(fn: (arg: T) => Promise<R>): (arg: T) => R {
-  return fn as (arg: T) => R;
-}
-
-const ProjectsTable = asyncComponent(async ({ projects }: { projects: string }) => {
+export default function ProjectsTable({ projects }: { projects: string }) {
   const data = superjson.parse<Project[]>(projects);
   return (
-    <main>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Name</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((project) => (
-            <TableRow key={project.id}>
-              <TableCell>{project.name}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </main>
+    <div>
+      <h1>Projects</h1>
+      <div>
+        {data.map((project) => (
+          <div key={project.id} className="flex flex-nowrap">
+            <div className="">{project.name}</div>
+            <div className="truncate">{project.description}</div>
+            <div className="">{project.status}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
-});
-
-export default ProjectsTable;
+}

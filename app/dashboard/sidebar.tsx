@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Sidebar() {
   return (
-    <aside className="w-64">
+    <aside className="w-48 flex-none">
       <ul>
         <li>
           <Link href="/dashboard">Dashboard</Link>

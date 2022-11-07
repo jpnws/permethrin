@@ -10,7 +10,7 @@ export default function ProjectsTable({ projects }: { projects: string }) {
       <h1>Projects</h1>
       <div>
         {data.map((project) => (
-          <div key={project.id} className="flex flex-nowrap">
+          <div key={project.id} className="grid grid-cols-3">
             <div className="">{project.name}</div>
             <div className="truncate">{project.description}</div>
             <div className="">{project.status}</div>

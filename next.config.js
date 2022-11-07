@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true, // * This is the default in Next.js 13.
   experimental: {
     appDir: true,
     webVitalsAttribution: ['CLS', 'FCP', 'LCP', 'FID', 'TTFB', 'INP'],

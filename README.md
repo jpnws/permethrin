@@ -1,3 +1,5 @@
+![permethrin](https://github.com/jpnws/permethrin/blob/main/public/permethrin.png?raw=true)
+
 # Permethrin
 
 ## Bug tracker

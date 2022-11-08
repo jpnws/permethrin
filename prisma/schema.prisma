@@ -48,8 +48,8 @@ model User {
   password              String
   email                 String              @unique
   role                  UserRole            @default(SUBMITTER)
-  created               DateTime            @default(now())
-  updated               DateTime            @updatedAt
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
   assignedTickets       Ticket[]            @relation("AssignedTickets")
   createdTickets        Ticket[]            @relation("CreatedTickets")
   createdProjects       Project[]           @relation("CreatorProjects")
@@ -69,8 +69,8 @@ model Project {
   members           User[]              @relation("ProjectMembers")
   creatorId         String
   status            ProjectStatus
-  created           DateTime            @default(now())
-  updated           DateTime            @updatedAt
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
   Ticket            Ticket[]
   ProjectComment    ProjectComment[]
   ProjectAttachment ProjectAttachment[]
@@ -83,8 +83,8 @@ model ProjectComment {
   creatorId String
   project   Project  @relation(fields: [projectId], references: [id])
   projectId String
-  created   DateTime @default(now())
-  updated   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model ProjectAttachment {
@@ -95,8 +95,8 @@ model ProjectAttachment {
   project   Project  @relation(fields: [projectId], references: [id])
   projectId String
   src       String
-  created   DateTime @default(now())
-  updated   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Ticket {
@@ -115,8 +115,8 @@ model Ticket {
   type         TicketType
   comments     TicketComment[]
   attachments  TicketAttachment[]
-  created      DateTime           @default(now())
-  updated      DateTime           @updatedAt
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
 }
 
 model TicketComment {
@@ -126,8 +126,8 @@ model TicketComment {
   creatorId String
   ticket    Ticket   @relation(fields: [ticketId], references: [id])
   ticketId  String
-  created   DateTime @default(now())
-  updated   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TicketAttachment {
@@ -138,6 +138,6 @@ model TicketAttachment {
   ticket    Ticket   @relation(fields: [ticketId], references: [id])
   ticketId  String
   src       String
-  created   DateTime @default(now())
-  updated   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

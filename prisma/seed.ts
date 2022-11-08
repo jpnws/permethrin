@@ -21,8 +21,8 @@ export function createRandomUser(): User {
     password: faker.internet.password(),
     email: faker.internet.email(),
     role: faker.helpers.arrayElement(['ADMIN', 'PROJECT_MANAGER', 'DEVELOPER', 'SUBMITTER']),
-    created: faker.date.past(),
-    updated: faker.date.recent(),
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.recent(),
   };
 }
 
@@ -33,8 +33,8 @@ export function createRandomProject(): Project {
     description: faker.lorem.paragraph(),
     creatorId: faker.helpers.arrayElement(USERS).id,
     status: faker.helpers.arrayElement(['ACTIVE', 'INACTIVE', 'ARCHIVED']),
-    created: faker.date.past(),
-    updated: faker.date.recent(),
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.recent(),
   };
 }
 
@@ -49,8 +49,8 @@ export function createRandomTicket(): Ticket {
     creatorId: faker.helpers.arrayElement(USERS).id,
     projectId: faker.helpers.arrayElement(PROJECTS).id,
     assignedId: faker.helpers.arrayElement(USERS).id,
-    created: faker.date.past(),
-    updated: faker.date.recent(),
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.recent(),
   };
 }
 

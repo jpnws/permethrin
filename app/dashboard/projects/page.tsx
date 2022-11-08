@@ -4,10 +4,16 @@ import superjson from 'superjson';
 
 export default async function Projects() {
   const prisma = new PrismaClient();
-  const projects = superjson.stringify(await prisma.project.findMany());
+  const projects = await prisma.project.findMany({
+    take: 10,
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  const projectJson = superjson.stringify(projects);
   return (
     <main>
-      <ProjectsTable projects={projects} />
+      <ProjectsTable projects={projectJson} />
     </main>
   );
 }

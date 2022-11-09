@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Language and Environment */
-    "target": "es5",
+    "target": "ES6",
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     /* Modules */
@@ -26,7 +26,7 @@
     "noImplicitThis": true,
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": false, // ! this has a problem with NextJS13. Change this back to true after a fix.
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
     "strictBindCallApply": true,

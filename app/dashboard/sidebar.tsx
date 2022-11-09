@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Sidebar() {
   return (
-    <aside className="w-52 flex-none p-2">
+    <aside className="rounded border">
       <Image src="/permethrin.png" alt="Permethrin" width={50} height={50} priority />
       <ul>
         <li>

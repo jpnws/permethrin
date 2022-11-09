@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient, Project } from '@prisma/client';
-import ProjectsTable from 'app/dashboard/projects/projects-table';
 import { createPaginator } from 'app/dashboard/paginate';
+import PageNavigator from 'app/dashboard/projects/page-navigator';
+import ProjectsTable from 'app/dashboard/projects/projects-table';
 import { cache } from 'react';
 
 const prisma = new PrismaClient();
@@ -25,9 +26,17 @@ export default async function Projects({ searchParams }: { searchParams: { page:
   const result = JSON.stringify(await getProjects(Number(searchParams.page)));
   return (
     <main>
-      <h1>Projects</h1>
-      {/* @ts-expect-error Server Component */}
-      <ProjectsTable props={result} />
+      <div className="rounded border p-2">
+        <h1 className="font-bold">Projects</h1>
+      </div>
+      <div>
+        {/* @ts-expect-error Server Component */}
+        <ProjectsTable props={result} />
+      </div>
+      <div>
+        {/* @ts-expect-error Server Component */}
+        <PageNavigator props={result} />
+      </div>
     </main>
   );
 }

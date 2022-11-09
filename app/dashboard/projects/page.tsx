@@ -25,7 +25,7 @@ const getProjects = cache(async (page: number) => {
 export default async function Projects({ searchParams }: { searchParams: { page: string } }) {
   const result = JSON.stringify(await getProjects(Number(searchParams.page)));
   return (
-    <main>
+    <main className="flex flex-col gap-y-2">
       <div className="rounded border p-2">
         <h1 className="font-bold">Projects</h1>
       </div>

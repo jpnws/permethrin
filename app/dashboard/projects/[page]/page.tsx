@@ -1,7 +1,7 @@
 import { Prisma, PrismaClient, Project } from '@prisma/client';
 import { createPaginator } from 'app/dashboard/paginate';
-import PageNavigator from 'app/dashboard/projects/page-navigator';
-import ProjectsTable from 'app/dashboard/projects/projects-table';
+import PageNavigator from 'app/dashboard/projects/[page]/page-navigator';
+import ProjectsTable from 'app/dashboard/projects/[page]/projects-table';
 import { cache } from 'react';
 
 const prisma = new PrismaClient();
@@ -22,8 +22,8 @@ const getProjects = cache(async (page: number) => {
   );
 });
 
-export default async function Projects({ searchParams }: { searchParams: { page: string } }) {
-  const result = JSON.stringify(await getProjects(Number(searchParams.page)));
+export default async function Projects({ params }: { params: { page: string } }) {
+  const result = JSON.stringify(await getProjects(Number(params.page)));
   return (
     <main className="flex flex-col gap-y-2">
       <div className="rounded border p-2">

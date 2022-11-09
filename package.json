@@ -13,7 +13,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^4.5.0",
+    "@prisma/client": "^4.6.0",
     "@tanstack/react-table": "^8.5.22",
     "next": "13.0.2",
     "react": "18.2.0",
@@ -25,7 +25,7 @@
     "@types/node": "^18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
-    "@typescript-eslint/parser": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.1",
     "autoprefixer": "^10.4.13",
     "cuid": "^2.1.8",
     "eslint": "^8.27.0",
@@ -36,7 +36,7 @@
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
-    "prisma": "^4.5.0",
+    "prisma": "^4.6.0",
     "tailwindcss": "^3.2.2",
     "ts-node": "^10.9.1",
     "tsutils": "^3.21.0",

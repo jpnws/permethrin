@@ -43,10 +43,10 @@ export default async function PageNavigator({ props }: { props: string }) {
         </svg>
       </Link>
       {[...Array(total / perPage).keys()].map((pageNum) => {
-        const prevPageStyle = prev === pageNum + 1 ? 'border-r-0' : '';
+        const prevPageStyle = prev === pageNum + 1 ? 'border-r-0' : 'border-r';
         const currPageStyle = currentPage === pageNum + 1 ? 'border-l bg-gray-100 border-gray-300' : '';
         return (
-          <Link href={`/dashboard/projects?page=${pageNum + 1}`} className={`border-r border-t border-b px-2 hover:bg-gray-100 ${currPageStyle} ${prevPageStyle}`}>
+          <Link key={`page${pageNum}`} href={`/dashboard/projects?page=${pageNum + 1}`} className={`border-t border-b px-2 hover:bg-gray-100 ${currPageStyle} ${prevPageStyle}`}>
             {pageNum + 1}
           </Link>
         );

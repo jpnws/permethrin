@@ -1,25 +1,28 @@
 import { Prisma, PrismaClient, Project } from '@prisma/client';
 import ProjectsTable from 'app/dashboard/projects/projects-table';
-import superjson from 'superjson';
 import { createPaginator } from 'app/dashboard/paginate';
+import { cache } from 'react';
+
+const prisma = new PrismaClient();
 
 const paginate = createPaginator({ perPage: 20 });
 
-export default async function Projects({ searchParams }: { searchParams: { page: string } }) {
-  const prisma = new PrismaClient();
-  const result = superjson.stringify(
-    await paginate<Project, Prisma.ProjectFindManyArgs>(
-      prisma.project,
-      {
-        orderBy: {
-          createdAt: 'desc',
-        },
+const getProjects = cache(async (page: number) => {
+  return await paginate<Project, Prisma.ProjectFindManyArgs>(
+    prisma.project,
+    {
+      orderBy: {
+        createdAt: 'desc',
       },
-      {
-        page: searchParams.page,
-      },
-    ),
+    },
+    {
+      page: page,
+    },
   );
+});
+
+export default async function Projects({ searchParams }: { searchParams: { page: string } }) {
+  const result = JSON.stringify(await getProjects(Number(searchParams.page)));
   return (
     <main>
       <h1>Projects</h1>

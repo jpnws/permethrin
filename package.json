@@ -14,11 +14,10 @@
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",
-    "heroicons": "^1.0.6",
+    "@tanstack/react-table": "^8.5.22",
     "next": "13.0.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "superjson": "^1.11.0"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",

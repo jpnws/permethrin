@@ -1,11 +1,9 @@
-import { Prisma, Project } from '@prisma/client';
+import { Project } from '@prisma/client';
 import { PaginatedResult } from 'app/dashboard/paginate';
-import Link from 'next/link';
-import superjson from 'superjson';
+import PageNavigator from 'app/dashboard/projects/page-navigator';
 
 export default async function ProjectsTable({ props }: { props: string }) {
-  const res = superjson.parse<PaginatedResult<Project>>(props);
-
+  const res = JSON.parse(props) as PaginatedResult<Project>;
   return (
     <div>
       {res.data.map((item) => (
@@ -15,7 +13,8 @@ export default async function ProjectsTable({ props }: { props: string }) {
           <div className="">{item.status}</div>
         </div>
       ))}
-      <Link href={`/dashboard/projects?page=${res.meta.next}`}>Next</Link>
+      {/* @ts-expect-error Server Component */}
+      <PageNavigator props={props} />
     </div>
   );
 }

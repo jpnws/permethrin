@@ -8,7 +8,7 @@ export default async function PageNavigator({ props }: { props: string }) {
   const prevChevronStyle = currentPage === 1 ? 'border-r-0' : 'border-r';
   return (
     <div className="flex w-fit rounded shadow">
-      <Link href={`/dashboard/projects?page=1`} className="rounded-bl rounded-tl border-r border-t border-b first:border-l hover:bg-gray-100">
+      <Link href={{ pathname: '/dashboard/projects', query: { page: 1 } }} className="rounded-bl rounded-tl border-r border-t border-b first:border-l hover:bg-gray-100">
         <svg
           data-testid="geist-icon"
           fill="none"
@@ -25,7 +25,7 @@ export default async function PageNavigator({ props }: { props: string }) {
           <path d="m11 17-5-5 5-5M18 17l-5-5 5-5" />
         </svg>
       </Link>
-      <Link href={`/dashboard/projects?page=${prev}`} className={`border-t border-b hover:bg-gray-100 ${prevChevronStyle}`}>
+      <Link href={{ pathname: '/dashboard/projects', query: { page: prev } }} className={`border-t border-b hover:bg-gray-100 ${prevChevronStyle}`}>
         <svg
           data-testid="geist-icon"
           fill="none"
@@ -46,12 +46,12 @@ export default async function PageNavigator({ props }: { props: string }) {
         const prevPageStyle = prev === pageNum + 1 ? 'border-r-0' : 'border-r';
         const currPageStyle = currentPage === pageNum + 1 ? 'border-l bg-gray-100 border-gray-300' : '';
         return (
-          <Link key={`page${pageNum}`} href={`/dashboard/projects?page=${pageNum + 1}`} className={`border-t border-b px-2 hover:bg-gray-100 ${currPageStyle} ${prevPageStyle}`}>
+          <Link key={`page${pageNum}`} href={{ pathname: '/dashboard/projects', query: { page: pageNum + 1 } }} className={`border-t border-b px-2 hover:bg-gray-100 ${currPageStyle} ${prevPageStyle}`}>
             {pageNum + 1}
           </Link>
         );
       })}
-      <Link href={`/dashboard/projects?page=${next}`} className="border-r border-t border-b hover:bg-gray-100">
+      <Link href={{ pathname: '/dashboard/projects', query: { page: next } }} className="border-r border-t border-b hover:bg-gray-100">
         <svg
           data-testid="geist-icon"
           fill="none"
@@ -68,7 +68,7 @@ export default async function PageNavigator({ props }: { props: string }) {
           <path d="m9 18 6-6-6-6" />
         </svg>
       </Link>
-      <Link href={`/dashboard/projects?page=${lastPage}`} className="rounded-tr rounded-br border-r border-t border-b hover:bg-gray-100">
+      <Link href={{ pathname: '/dashboard/projects', query: { page: lastPage } }} className="rounded-tr rounded-br border-r border-t border-b hover:bg-gray-100">
         <svg
           data-testid="geist-icon"
           fill="none"

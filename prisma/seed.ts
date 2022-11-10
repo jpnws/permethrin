@@ -35,6 +35,7 @@ export function createRandomProject(): Project {
     status: faker.helpers.arrayElement(['ACTIVE', 'INACTIVE', 'ARCHIVED']),
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent(),
+    slug: faker.helpers.slugify(faker.company.name()),
   };
 }
 

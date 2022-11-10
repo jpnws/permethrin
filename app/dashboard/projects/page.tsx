@@ -1,10 +1,9 @@
-import { Prisma, PrismaClient, Project } from '@prisma/client';
-import { createPaginator } from 'app/dashboard/paginate';
+import { Prisma, Project } from '@prisma/client';
 import PageNavigator from 'app/dashboard/projects/page-navigator';
 import ProjectsTable from 'app/dashboard/projects/projects-table';
+import { prisma } from 'lib/db';
+import { createPaginator } from 'lib/paginate';
 import { cache } from 'react';
-
-const prisma = new PrismaClient();
 
 const paginate = createPaginator({ perPage: 20 });
 

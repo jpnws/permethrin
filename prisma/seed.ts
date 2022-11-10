@@ -1,6 +1,7 @@
-import { PrismaClient, Project, Ticket, User } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import { Project, Ticket, User } from '@prisma/client';
 import cuid from 'cuid';
+import { prisma } from 'lib/db';
 
 export const USERS: User[] = [];
 export const PROJECTS: Project[] = [];
@@ -27,15 +28,16 @@ export function createRandomUser(): User {
 }
 
 export function createRandomProject(): Project {
+  const companyName = faker.company.name();
   return {
     id: cuid(),
-    name: faker.company.name(),
+    name: companyName,
     description: faker.lorem.paragraph(),
     creatorId: faker.helpers.arrayElement(USERS).id,
     status: faker.helpers.arrayElement(['ACTIVE', 'INACTIVE', 'ARCHIVED']),
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent(),
-    slug: faker.helpers.slugify(faker.company.name()),
+    slug: faker.helpers.slugify(companyName),
   };
 }
 
@@ -54,8 +56,6 @@ export function createRandomTicket(): Ticket {
     updatedAt: faker.date.recent(),
   };
 }
-
-const prisma = new PrismaClient();
 
 async function main() {
   for (const user of USERS) {

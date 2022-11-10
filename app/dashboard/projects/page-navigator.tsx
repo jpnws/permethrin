@@ -1,5 +1,5 @@
 import { Project } from '@prisma/client';
-import { PaginatedResult } from 'app/dashboard/paginate';
+import { PaginatedResult } from 'lib/paginate';
 import Link from 'next/link';
 
 export default async function PageNavigator({ props }: { props: string }) {

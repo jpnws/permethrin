@@ -1,19 +1,24 @@
-import ProjectInformation from 'app/dashboard/projects/[slug]/project-information';
+import 'server-only';
+
+import { cache } from 'react';
 import { prisma } from 'lib/db';
+
+import ProjectInformation from './project-information';
+
+const getProject = cache(async (slug: string) => {
+  const project = await prisma.project.findUnique({
+    where: { slug },
+    include: {
+      creator: true,
+      members: true,
+    },
+  });
+  return project;
+});
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const project = await prisma.project.findFirst({
-    where: {
-      slug,
-    },
-  });
-
-  const pages = [
-    { name: 'Projects', href: '/dashboard/projects', current: false },
-    { name: project?.name, href: `/dashboard/projects/${encodeURIComponent(project?.slug as string)}`, current: true },
-  ];
-
+  const project = await getProject(slug);
   return (
     <>
       {/* @ts-expect-error Server Component */}

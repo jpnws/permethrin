@@ -1,3 +1,5 @@
+import 'server-only';
+
 function badgeStyle(status: string) {
   switch (status) {
     case 'ACTIVE':

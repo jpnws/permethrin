@@ -1,6 +1,5 @@
 import ProjectInformation from 'app/dashboard/projects/[slug]/project-information';
 import { prisma } from 'lib/db';
-import Link from 'next/link';
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
   const { slug } = params;

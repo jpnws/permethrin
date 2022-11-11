@@ -11,6 +11,9 @@ const getProject = cache(async (slug: string) => {
     include: {
       creator: true,
       members: true,
+      tickets: true,
+      attachments: true,
+      comments: true,
     },
   });
   return project;
@@ -22,7 +25,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   return (
     <>
       {/* @ts-expect-error Server Component */}
-      <ProjectInformation project={project} />
+      <ProjectInformation project={project} tickets={project?.tickets} />
     </>
   );
 }

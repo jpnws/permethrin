@@ -1,3 +1,5 @@
+import 'server-only';
+
 import 'app/globals.css';
 
 import localFont from '@next/font/local';

@@ -1,8 +1,9 @@
 import 'server-only';
-import { cache } from 'react';
+
 import { Project, Ticket } from '@prisma/client';
 import StatusBadge from 'app/dashboard/projects/[slug]/status-badge';
 import { prisma } from 'lib/db';
+import { cache } from 'react';
 
 const getCreator = cache(async (id: string) => {
   const creator = await prisma.user.findUnique({ where: { id } });

@@ -1,7 +1,7 @@
 import 'server-only';
 
-import { cache } from 'react';
 import { prisma } from 'lib/db';
+import { cache } from 'react';
 
 import ProjectInformation from './project-information';
 

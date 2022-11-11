@@ -1,11 +1,7 @@
 import 'server-only';
-
 import { cache } from 'react';
-
-import { Project } from '@prisma/client';
-
+import { Project, Ticket } from '@prisma/client';
 import StatusBadge from 'app/dashboard/projects/[slug]/status-badge';
-
 import { prisma } from 'lib/db';
 
 const getCreator = cache(async (id: string) => {
@@ -13,8 +9,9 @@ const getCreator = cache(async (id: string) => {
   return creator;
 });
 
-export default async function ProjectInformation({ project }: { project: Project }) {
+export default async function ProjectInformation({ project, tickets }: { project: Project; tickets: Ticket[] }) {
   const creator = await getCreator(project.creatorId);
+  const ticketCount = tickets.length;
   return (
     <div className="flex flex-col rounded-lg border border-gray-100 shadow">
       <div className="border-b">
@@ -27,6 +24,10 @@ export default async function ProjectInformation({ project }: { project: Project
         <div className="flex gap-x-2">
           <div className="text-sm font-bold text-gray-500">Creator</div>
           <div className="text-sm">{creator?.name}</div>
+        </div>
+        <div className="flex gap-x-2">
+          <div className="text-sm font-bold text-gray-500">Number of tickets</div>
+          <div className="text-sm">{ticketCount}</div>
         </div>
         <div className="flex gap-x-2">
           <div className="text-sm font-bold text-gray-500">Status</div>

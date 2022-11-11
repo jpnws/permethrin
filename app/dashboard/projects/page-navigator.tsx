@@ -2,9 +2,8 @@ import { Project } from '@prisma/client';
 import { PaginatedResult } from 'lib/paginate';
 import Link from 'next/link';
 
-export default async function PageNavigator({ props }: { props: string }) {
-  const res = JSON.parse(props) as PaginatedResult<Project>;
-  const { currentPage, total, perPage, lastPage, prev, next } = res.meta;
+export default async function PageNavigator({ paginatedProjects }: { paginatedProjects: PaginatedResult<Project> }) {
+  const { currentPage, total, perPage, lastPage, prev, next } = paginatedProjects.meta;
   const prevChevronStyle = currentPage === 1 ? 'border-r-0' : 'border-r';
   return (
     <div className="flex w-fit rounded shadow">

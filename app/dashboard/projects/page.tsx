@@ -22,7 +22,7 @@ const getProjects = cache(async (page: number) => {
 });
 
 export default async function Projects({ searchParams }: { searchParams: { page: string } }) {
-  const result = JSON.stringify(await getProjects(Number(searchParams.page)));
+  const paginatedProjects = await getProjects(Number(searchParams.page));
   return (
     <main className="flex flex-col gap-y-2">
       <div className="rounded border p-2">
@@ -30,11 +30,11 @@ export default async function Projects({ searchParams }: { searchParams: { page:
       </div>
       <div>
         {/* @ts-expect-error Server Component */}
-        <ProjectsTable props={result} />
+        <ProjectsTable paginatedProjects={paginatedProjects} />
       </div>
       <div>
         {/* @ts-expect-error Server Component */}
-        <PageNavigator props={result} />
+        <PageNavigator paginatedProjects={paginatedProjects} />
       </div>
     </main>
   );

@@ -1,4 +1,6 @@
+import ProjectInformation from 'app/dashboard/projects/[slug]/project-information';
 import { prisma } from 'lib/db';
+import Link from 'next/link';
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -7,10 +9,16 @@ export default async function ProjectPage({ params }: { params: { slug: string }
       slug,
     },
   });
+
+  const pages = [
+    { name: 'Projects', href: '/dashboard/projects', current: false },
+    { name: project?.name, href: `/dashboard/projects/${encodeURIComponent(project?.slug as string)}`, current: true },
+  ];
+
   return (
-    <div>
-      <h1>{project?.name}</h1>
-      <p>{project?.description}</p>
-    </div>
+    <>
+      {/* @ts-expect-error Server Component */}
+      <ProjectInformation project={project} />
+    </>
   );
 }

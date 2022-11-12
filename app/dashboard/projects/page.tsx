@@ -5,7 +5,7 @@ import { prisma } from 'lib/db';
 import { createPaginator } from 'lib/paginate';
 import { cache } from 'react';
 
-const paginate = createPaginator({ perPage: 20 });
+const paginate = createPaginator({ perPage: 5 });
 
 const getProjects = cache(async (page: number) => {
   return await paginate<Project, Prisma.ProjectFindManyArgs>(

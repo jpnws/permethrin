@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { Project, Ticket, User } from '@prisma/client';
+import { PrismaClient, Project, Ticket, User } from '@prisma/client';
 import cuid from 'cuid';
-import { prisma } from 'lib/db';
+
+const prisma = new PrismaClient();
 
 export const USERS: User[] = [];
 export const PROJECTS: Project[] = [];

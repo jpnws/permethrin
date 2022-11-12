@@ -8,7 +8,7 @@ export const USERS: User[] = [];
 export const PROJECTS: Project[] = [];
 export const TICKETS: Ticket[] = [];
 
-Array.from({ length: 100 }).forEach(() => {
+Array.from({ length: 20 }).forEach(() => {
   USERS.push(createRandomUser());
   PROJECTS.push(createRandomProject());
   TICKETS.push(createRandomTicket());

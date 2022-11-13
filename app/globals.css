@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* https: //github.com/vercel/next.js/discussions/41745#discussioncomment-4010844 */
+/** If we want a nested route to fill its parent container with 100% height,
+ ** layout's default div wrapper gets in the way as we need to target it somehow
+ ** to make it fill the parent as well. - https: //github.com/vercel/next.js/discussions/41745#discussioncomment-3964086
+ ** The following hack is a workaround for this issue as of Next.js 13.0.1.
+ */
+@layer base {
+  [data-nextjs-scroll-focus-boundary] {
+    display: contents;
+  }
+}

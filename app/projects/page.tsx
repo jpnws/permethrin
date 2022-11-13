@@ -1,5 +1,4 @@
 import { Prisma, Project } from '@prisma/client';
-import PageNavigator from 'app/projects/page-navigator';
 import ProjectsTable from 'app/projects/projects-table';
 import { prisma } from 'lib/db';
 import { createPaginator } from 'lib/paginate';
@@ -31,10 +30,6 @@ export default async function Projects({ searchParams }: { searchParams: { page:
       <div>
         {/* @ts-expect-error Server Component */}
         <ProjectsTable paginatedProjects={paginatedProjects} />
-      </div>
-      <div>
-        {/* @ts-expect-error Server Component */}
-        <PageNavigator paginatedProjects={paginatedProjects} />
       </div>
     </main>
   );

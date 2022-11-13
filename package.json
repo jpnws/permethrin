@@ -16,6 +16,7 @@
     "@next/font": "^13.0.3",
     "@prisma/client": "^4.6.1",
     "@tanstack/react-table": "^8.5.22",
+    "date-fns": "^2.29.3",
     "next": "13.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",

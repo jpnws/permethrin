@@ -1,17 +1,17 @@
 import { Project } from '@prisma/client';
-import { PaginatedResult } from 'lib/paginate';
 import Link from 'next/link';
+import { formatRelative, formatDistance, subDays } from 'date-fns';
 
-export default async function ProjectsTable({ paginatedProjects }: { paginatedProjects: PaginatedResult<Project> }) {
+export default async function ProjectsTable({ projects }: { projects: Project[] }) {
   return (
-    <div className="rounded border p-2">
-      {paginatedProjects.data.map((project) => (
-        <div key={project.id} className="grid grid-cols-3">
-          <div className="truncate">
+    <div className="text-sm">
+      {projects.map((project) => (
+        <div key={project.id} className="grid grid-cols-[10rem_auto_auto] border-b p-2">
+          <div className="">{project.status}</div>
+          <div className="flex justify-start">
             <Link href={`/projects/${encodeURIComponent(project.slug as string)}`}>{project.name}</Link>
           </div>
-          <div className="truncate">{project.description}</div>
-          <div className="">{project.status}</div>
+          <div className="flex justify-end">{formatDistance(project.createdAt, Date.now(), { addSuffix: true })}</div>
         </div>
       ))}
     </div>

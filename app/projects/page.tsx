@@ -16,7 +16,7 @@ export default async function Projects() {
   return (
     <main className="flex flex-col">
       <div className="border-b">
-        <h1 className="p-2">Projects</h1>
+        <h1 className="p-2 font-semibold">Projects</h1>
       </div>
       <div>
         {/* @ts-expect-error Server Component */}

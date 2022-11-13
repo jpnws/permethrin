@@ -13,7 +13,7 @@ export default function Sidebar() {
         </div>
         <div className="text-sm font-bold">Permethrin</div>
       </div>
-      <Link href="/dashboard/projects" className="rounded px-2 py-1 text-sm hover:bg-gray-100">
+      <Link href="/projects" className="rounded px-2 py-1 text-sm hover:bg-gray-100">
         Projects
       </Link>
     </aside>

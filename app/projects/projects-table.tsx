@@ -8,7 +8,7 @@ export default async function ProjectsTable({ paginatedProjects }: { paginatedPr
       {paginatedProjects.data.map((project) => (
         <div key={project.id} className="grid grid-cols-3">
           <div className="truncate">
-            <Link href={`/dashboard/projects/${encodeURIComponent(project.slug as string)}`}>{project.name}</Link>
+            <Link href={`/projects/${encodeURIComponent(project.slug as string)}`}>{project.name}</Link>
           </div>
           <div className="truncate">{project.description}</div>
           <div className="">{project.status}</div>

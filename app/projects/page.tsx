@@ -1,35 +1,26 @@
 import { Prisma, Project } from '@prisma/client';
 import ProjectsTable from 'app/projects/projects-table';
 import { prisma } from 'lib/db';
-import { createPaginator } from 'lib/paginate';
 import { cache } from 'react';
 
-const paginate = createPaginator({ perPage: 5 });
-
-const getProjects = cache(async (page: number) => {
-  return await paginate<Project, Prisma.ProjectFindManyArgs>(
-    prisma.project,
-    {
-      orderBy: {
-        createdAt: 'desc',
-      },
+const getProjects = cache(async () => {
+  return await prisma.project.findMany({
+    orderBy: {
+      createdAt: 'desc',
     },
-    {
-      page: page,
-    },
-  );
+  });
 });
 
-export default async function Projects({ searchParams }: { searchParams: { page: string } }) {
-  const paginatedProjects = await getProjects(Number(searchParams.page));
+export default async function Projects() {
+  const projects = await getProjects();
   return (
-    <main className="flex flex-col gap-y-2">
-      <div className="rounded border p-2">
-        <h1 className="font-bold">Projects</h1>
+    <main className="flex flex-col">
+      <div className="border-b">
+        <h1 className="p-2">Projects</h1>
       </div>
       <div>
         {/* @ts-expect-error Server Component */}
-        <ProjectsTable paginatedProjects={paginatedProjects} />
+        <ProjectsTable projects={projects} />
       </div>
     </main>
   );

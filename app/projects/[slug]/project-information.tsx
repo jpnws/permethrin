@@ -14,7 +14,7 @@ export default async function ProjectInformation({ project, tickets }: { project
   const creator = await getCreator(project.creatorId);
   const ticketCount = tickets.length;
   return (
-    <div className="flex flex-col rounded-lg border border-gray-100 shadow">
+    <div className="flex flex-col">
       <div className="border-b">
         <div className="p-4">
           <div className="text-lg font-medium">{project.name}</div>

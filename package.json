@@ -13,9 +13,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
-    "@next/font": "^13.0.3",
     "@prisma/client": "^4.6.1",
-    "@tanstack/react-table": "^8.5.22",
     "date-fns": "^2.29.3",
     "next": "13.0.3",
     "react": "18.2.0",
@@ -28,19 +26,19 @@
     "@tailwindcss/forms": "^0.5.3",
     "@types/node": "^18.11.9",
     "@types/react": "18.0.25",
-    "@types/react-dom": "18.0.8",
+    "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
     "cuid": "^2.1.8",
     "eslint": "^8.27.0",
     "eslint-config-next": "13.0.3",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-tailwindcss": "^3.6.2",
+    "eslint-plugin-tailwindcss": "^3.7.0",
     "postcss": "^8.4.19",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "prisma": "^4.6.1",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.3"
   }
 }

@@ -17,7 +17,7 @@ export default function StatusBadge({ status }: { status: string }) {
   const bgStyle = badgeStyle(status);
   return (
     <div className="flex items-center">
-      <div className={`rounded-md px-1.5 text-sm ${bgStyle}`}>{status.toLowerCase()}</div>
+      <div className={`rounded-md px-1.5 text-xs capitalize ${bgStyle}`}>{status.toLowerCase()}</div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { Project, Ticket } from '@prisma/client';
-import StatusBadge from 'app/projects/[slug]/status-badge';
+import StatusBadge from 'app/projects/status-badge';
 import { prisma } from 'lib/db';
 import { cache } from 'react';
 

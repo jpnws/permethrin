@@ -24,7 +24,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const { slug } = params;
   const project = await getProject(slug);
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid h-full grid-cols-[auto_26rem]">
       {/* @ts-expect-error Server Component */}
       <ProjectInformation project={project} attachments={project.attachments} tickets={project.tickets} />
       {/* @ts-expect-error Server Component */}

@@ -1,6 +1,15 @@
-![permethrin](https://github.com/jpnws/permethrin/blob/main/public/permethrin.png?raw=true)
+# 🪲 Permethrin
 
-# Permethrin
+An open source bug tracking software built using TypeScript, Prisma, NextAuth.js, and Next.js 13's new features such as the `app` directory and server components.
+
+## Technology
+
+- Next.js 13's `app` directory.
+- Nested layouts, caching, data fetching, and loading UI.
+- Type inference and form validation with Zod.
+- Prisma for object relational mapping.
+- PlanetScale for production database.
+- Server and client components.
 
 ## Bug tracker
 
@@ -44,3 +53,7 @@
 - Type: feature request, bugs/errors, other comments
 - Created date
 - Updated date
+
+## License
+
+Licensed under the MIT license.

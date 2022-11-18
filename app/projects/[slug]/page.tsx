@@ -3,7 +3,8 @@ import 'server-only';
 import { prisma } from 'lib/db';
 import { cache } from 'react';
 
-import ProjectInformation from './project-information';
+import ProjectDetails from 'app/projects/[slug]/project-details';
+import ProjectInformation from 'app/projects/[slug]/project-information';
 
 const getProject = cache(async (slug: string) => {
   const project = await prisma.project.findUnique({
@@ -23,10 +24,12 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const { slug } = params;
   const project = await getProject(slug);
   return (
-    <>
+    <div className="grid grid-cols-2">
       {/* @ts-expect-error Server Component */}
-      <ProjectInformation project={project} tickets={project?.tickets} />
-    </>
+      <ProjectInformation project={project} attachments={project.attachments} tickets={project.tickets} />
+      {/* @ts-expect-error Server Component */}
+      <ProjectDetails project={project} tickets={project?.tickets} />
+    </div>
   );
 }
 

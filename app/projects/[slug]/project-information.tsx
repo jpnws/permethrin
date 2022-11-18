@@ -2,7 +2,7 @@ import 'server-only';
 
 import { Project, ProjectAttachment, Ticket } from '@prisma/client';
 
-export default async function ProjectInformation({ project, attachments, tickets }: { project: Project; attachments: ProjectAttachment[]; tickets: Ticket[] }) {
+export default async function ProjectInformation({ project, attachments }: { project: Project; attachments: ProjectAttachment[] }) {
   return (
     <div className="h-full border-r">
       <div className="p-4">

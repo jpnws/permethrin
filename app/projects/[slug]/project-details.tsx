@@ -1,7 +1,8 @@
 import 'server-only';
 
-import { Project, Ticket } from '@prisma/client';
+import { Project, Ticket, User } from '@prisma/client';
 import StatusBadge from 'app/projects/status-badge';
+import MemberList from 'app/projects/[slug]/member-list';
 import { prisma } from 'lib/db';
 import { cache } from 'react';
 
@@ -10,7 +11,7 @@ const getCreator = cache(async (id: string) => {
   return creator;
 });
 
-export default async function ProjectDetails({ project, tickets }: { project: Project; tickets: Ticket[] }) {
+export default async function ProjectDetails({ project, tickets, members }: { project: Project; tickets: Ticket[]; members: User[] }) {
   const creator = await getCreator(project.creatorId);
   const ticketCount = tickets.length;
   return (
@@ -21,6 +22,8 @@ export default async function ProjectDetails({ project, tickets }: { project: Pr
       <div className="flex items-center text-sm">{creator?.name}</div>
       <div className="flex items-center text-sm font-bold text-gray-500">Number of tickets</div>
       <div className="flex items-center text-sm">{ticketCount}</div>
+      {/* @ts-expect-error Server Component */}
+      <MemberList members={members} />
     </div>
   );
 }

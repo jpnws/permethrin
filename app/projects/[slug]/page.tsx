@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
       {/* @ts-expect-error Server Component */}
       <ProjectInformation project={project} attachments={project.attachments} />
       {/* @ts-expect-error Server Component */}
-      <ProjectDetails project={project} tickets={project?.tickets} />
+      <ProjectDetails project={project} tickets={project?.tickets} members={project?.members} />
     </div>
   );
 }

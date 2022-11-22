@@ -11,6 +11,9 @@ const nextConfig = {
     // TTFB: Time to First Byte
     // INP: Input Delay
   },
+  images: {
+    domains: ['cloudflare-ipfs.com'],
+  },
 };
 
 module.exports = nextConfig;

@@ -25,6 +25,7 @@ export function createRandomUser(): User {
     role: faker.helpers.arrayElement(['ADMIN', 'PROJECT_MANAGER', 'DEVELOPER', 'SUBMITTER']),
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent(),
+    avatar: faker.image.avatar(),
   };
 }
 

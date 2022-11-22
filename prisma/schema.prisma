@@ -46,6 +46,7 @@ model User {
   name                  String              @default("")
   salt                  String
   password              String
+  avatar                String              @default("")
   email                 String              @unique
   role                  UserRole            @default(SUBMITTER)
   createdAt             DateTime            @default(now())

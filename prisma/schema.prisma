@@ -123,7 +123,7 @@ model Ticket {
 
 model TicketComment {
   id        String   @id @default(cuid())
-  body      String   @db.Text
+  content   String   @db.Text
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
   ticket    Ticket   @relation(fields: [ticketId], references: [id])

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { PrismaClient, Project, ProjectAttachment, ProjectComment, Ticket, User } from '@prisma/client';
+import { PrismaClient, Project, ProjectAttachment, ProjectComment, Ticket, TicketAttachment, TicketComment, User } from '@prisma/client';
 import cuid from 'cuid';
 
 const prisma = new PrismaClient();
@@ -9,6 +9,8 @@ export const PROJECTS: Project[] = [];
 export const TICKETS: Ticket[] = [];
 export const PROJECT_COMMENTS: ProjectComment[] = [];
 export const PROJECT_ATTACHMENTS: ProjectAttachment[] = [];
+export const TICKET_ATTACHMENTS: TicketAttachment[] = [];
+export const TICKET_COMMENTS: TicketComment[] = [];
 
 Array.from({ length: 20 }).forEach(() => {
   USERS.push(createRandomUser());
@@ -19,6 +21,8 @@ Array.from({ length: 100 }).forEach(() => {
   TICKETS.push(createRandomTicket());
   PROJECT_COMMENTS.push(createRandomProjectComment());
   PROJECT_ATTACHMENTS.push(createRandomProjectAttachment());
+  TICKET_ATTACHMENTS.push(createRandomTicketAttachment());
+  TICKET_COMMENTS.push(createRandomTicketComment());
 });
 
 export function createRandomUser(): User {
@@ -89,6 +93,29 @@ export function createRandomProjectAttachment(): ProjectAttachment {
   };
 }
 
+export function createRandomTicketAttachment(): TicketAttachment {
+  return {
+    id: cuid(),
+    name: faker.system.fileName(),
+    url: faker.image.imageUrl(),
+    ticketId: faker.helpers.arrayElement(TICKETS).id,
+    creatorId: faker.helpers.arrayElement(USERS).id,
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.recent(),
+  };
+}
+
+export function createRandomTicketComment(): TicketComment {
+  return {
+    id: cuid(),
+    content: faker.lorem.paragraph(),
+    creatorId: faker.helpers.arrayElement(USERS).id,
+    ticketId: faker.helpers.arrayElement(TICKETS).id,
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.recent(),
+  };
+}
+
 async function main() {
   for (const user of USERS) {
     await prisma.user.upsert({
@@ -139,6 +166,20 @@ async function main() {
       where: { id: projectAttachment.id },
       update: {},
       create: projectAttachment,
+    });
+  }
+  for (const ticketAttachment of TICKET_ATTACHMENTS) {
+    await prisma.ticketAttachment.upsert({
+      where: { id: ticketAttachment.id },
+      update: {},
+      create: ticketAttachment,
+    });
+  }
+  for (const ticketComment of TICKET_COMMENTS) {
+    await prisma.ticketComment.upsert({
+      where: { id: ticketComment.id },
+      update: {},
+      create: ticketComment,
     });
   }
 }

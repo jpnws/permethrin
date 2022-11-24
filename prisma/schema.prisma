@@ -80,7 +80,7 @@ model Project {
 
 model ProjectComment {
   id        String   @id @default(cuid())
-  comment   String   @db.Text
+  content   String   @db.Text
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
   project   Project  @relation(fields: [projectId], references: [id])
@@ -92,11 +92,11 @@ model ProjectComment {
 model ProjectAttachment {
   id        String   @id @default(cuid())
   name      String
+  url       String
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
   project   Project  @relation(fields: [projectId], references: [id])
   projectId String
-  src       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -139,7 +139,7 @@ model TicketAttachment {
   creatorId String
   ticket    Ticket   @relation(fields: [ticketId], references: [id])
   ticketId  String
-  src       String
+  url       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

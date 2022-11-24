@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { PrismaClient, Project, Ticket, User } from '@prisma/client';
+import { PrismaClient, Project, ProjectAttachment, ProjectComment, Ticket, User } from '@prisma/client';
 import cuid from 'cuid';
 
 const prisma = new PrismaClient();
@@ -7,11 +7,18 @@ const prisma = new PrismaClient();
 export const USERS: User[] = [];
 export const PROJECTS: Project[] = [];
 export const TICKETS: Ticket[] = [];
+export const PROJECT_COMMENTS: ProjectComment[] = [];
+export const PROJECT_ATTACHMENTS: ProjectAttachment[] = [];
 
 Array.from({ length: 20 }).forEach(() => {
   USERS.push(createRandomUser());
   PROJECTS.push(createRandomProject());
+});
+
+Array.from({ length: 100 }).forEach(() => {
   TICKETS.push(createRandomTicket());
+  PROJECT_COMMENTS.push(createRandomProjectComment());
+  PROJECT_ATTACHMENTS.push(createRandomProjectAttachment());
 });
 
 export function createRandomUser(): User {
@@ -59,6 +66,29 @@ export function createRandomTicket(): Ticket {
   };
 }
 
+export function createRandomProjectComment(): ProjectComment {
+  return {
+    id: cuid(),
+    content: faker.lorem.paragraph(),
+    creatorId: faker.helpers.arrayElement(USERS).id,
+    projectId: faker.helpers.arrayElement(PROJECTS).id,
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.recent(),
+  };
+}
+
+export function createRandomProjectAttachment(): ProjectAttachment {
+  return {
+    id: cuid(),
+    name: faker.system.fileName(),
+    url: faker.image.imageUrl(),
+    projectId: faker.helpers.arrayElement(PROJECTS).id,
+    creatorId: faker.helpers.arrayElement(USERS).id,
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.recent(),
+  };
+}
+
 async function main() {
   for (const user of USERS) {
     await prisma.user.upsert({
@@ -95,6 +125,20 @@ async function main() {
             .map((user) => ({ id: user.id })),
         },
       },
+    });
+  }
+  for (const projectComment of PROJECT_COMMENTS) {
+    await prisma.projectComment.upsert({
+      where: { id: projectComment.id },
+      update: {},
+      create: projectComment,
+    });
+  }
+  for (const projectAttachment of PROJECT_ATTACHMENTS) {
+    await prisma.projectAttachment.upsert({
+      where: { id: projectAttachment.id },
+      update: {},
+      create: projectAttachment,
     });
   }
 }
